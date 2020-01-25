@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "./rootReducer";
+import {
+  incrementCounter,
+  decrementCounter,
+  resetCounter
+} from "features/counter/counterSlice";
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const { theCounter } = useSelector((state: RootState) => state.counter);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      the counter: {theCounter}
+      <button onClick={() => dispatch(incrementCounter())}>Increment</button>
+      <button onClick={() => dispatch(decrementCounter())}>Decrement</button>
+      <button onClick={() => dispatch(resetCounter())}>Reset</button>
     </div>
   );
-}
+};
 
 export default App;
