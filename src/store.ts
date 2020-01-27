@@ -1,7 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+
 import rootReducer from "./rootReducer";
+import createLogger from "middleware/logger";
+
 const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  middleware: [
+    ...getDefaultMiddleware(),
+    createLogger(process.env.NODE_ENV === "development")
+  ]
 });
 if (process.env.NODE_ENV === "development" && module.hot) {
   module.hot.accept("./rootReducer", () => {
