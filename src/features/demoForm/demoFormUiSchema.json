@@ -1,0 +1,11 @@
+{
+  "firstName": {
+    "ui:autofocus": true
+  },
+  "phoneNumber": {
+    "ui:widget": "phoneNumberWidget"
+  },
+  "comment": {
+    "ui:widget": "textarea"
+  }
+}
