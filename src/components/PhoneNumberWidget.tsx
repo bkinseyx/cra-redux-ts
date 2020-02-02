@@ -7,9 +7,13 @@ interface PhoneNumberWidgetProps {
   onChange: (value: string) => void;
 }
 
-// It is necessary to make sure value is initialized as a string, rather than undefined.
-// Because otherwise react will give a warning about an uncontrolled component changing
-// to a controlled component.
+/**
+ * This widget is an custom field component that can be used inside of react-jsonschema-forms
+ * The props are fed in from react-jsonschema-forms.
+ * It is necessary to make sure value is initialized as a string, rather than undefined.
+ * Because otherwise react will give a warning about an uncontrolled component changing
+ * to a controlled component. I like also like input masking.
+ */
 const PhoneNumberWidget: React.FC<PhoneNumberWidgetProps> = ({
   value = "",
   required,
