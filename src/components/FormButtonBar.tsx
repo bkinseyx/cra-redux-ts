@@ -6,10 +6,13 @@ import { RootState } from "rootReducer";
 
 interface FormButtonBarProps {
   sliceKey: string;
-  clearForm: ActionCreatorWithoutPayload<string>;
+  clearForm: ActionCreatorWithoutPayload;
 }
 
-const FormButtonBar = ({ sliceKey, clearForm }: FormButtonBarProps) => {
+const FormButtonBar: React.FC<FormButtonBarProps> = ({
+  sliceKey,
+  clearForm
+}) => {
   const dispatch = useDispatch();
   const { submitting } = useSelector(
     (state: RootState) => (state as any)[sliceKey]

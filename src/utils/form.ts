@@ -1,6 +1,7 @@
-import React from "react";
-import { AjvError } from "react-jsonschema-form";
-import InputMask from "react-input-mask";
+import { StatelessComponent } from "react";
+import { AjvError, WidgetProps } from "react-jsonschema-form";
+
+import PhoneNumberWidget from "components/PhoneNumberWidget";
 
 interface Error {
   property: string;
@@ -84,30 +85,8 @@ const getErrorStrings: GetErrorStrings = formats =>
 // Because otherwise react will give a warning about an uncontrolled component changing
 // to a controlled component.
 
-interface PhoneNumberWidgetProps {
-  value: string;
-  required: boolean | undefined;
-  onChange: (value: string) => void;
-}
-
-const PhoneNumberWidget: (
-  props: PhoneNumberWidgetProps
-) => JSX.Element = props => {
-  const { value = "", required, onChange } = props;
-  return (
-    <InputMask
-      mask="999-999-9999"
-      maskChar="_"
-      type="tel"
-      className="form-control"
-      value={value}
-      required={required}
-      onChange={event => onChange(event.target.value)}
-    />
-  );
-};
 const widgets = {
-  phoneNumberWidget: PhoneNumberWidget
+  phoneNumberWidget: PhoneNumberWidget as StatelessComponent<WidgetProps>
 };
 
 export { getTransformErrors, formats, widgets, getCustomFormats };

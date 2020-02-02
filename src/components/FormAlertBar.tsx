@@ -7,7 +7,7 @@ interface FormAlertBarProps {
   sliceKey: string;
 }
 
-const FormAlertBar = ({ sliceKey }: FormAlertBarProps) => {
+const FormAlertBar: React.FC<FormAlertBarProps> = ({ sliceKey }) => {
   const { serverSuccessMessage, serverError, submitting } = useSelector(
     (state: RootState) => (state as any)[sliceKey]
   );
