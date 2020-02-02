@@ -13,7 +13,7 @@ import {
 import {
   formDataChange,
   submitDemoForm,
-  clearServerError
+  clearForm
 } from "features/demoForm/demoFormSlice";
 
 import schema from "./demoFormSchema.json";
@@ -21,15 +21,34 @@ import uiSchema from "./demoFormUiSchema.json";
 
 const DemoForm: React.FC = () => {
   const dispatch = useDispatch();
-  const { formData, serverError, submitting } = useSelector(
-    (state: RootState) => state.demoForm
-  );
+  const {
+    formKey,
+    formData,
+    serverSuccessMessage,
+    serverError,
+    submitting
+  } = useSelector((state: RootState) => state.demoForm);
 
   return (
     <div className="DemoForm">
-      DemoForm
-      {serverError && <div className="alert alert-danger">{serverError}</div>}
+      <h1>Demo Form</h1>
+      {serverSuccessMessage && (
+        <div className="alert alert-success" role="alert">
+          {serverSuccessMessage}
+        </div>
+      )}
+      {serverError && (
+        <div className="alert alert-danger" role="alert">
+          {serverError}
+        </div>
+      )}
+      {submitting && (
+        <div className="alert alert-info" role="alert">
+          Submitting...
+        </div>
+      )}
       <Form
+        key={formKey}
         schema={schema as JSONSchema6}
         uiSchema={uiSchema}
         widgets={widgets}
@@ -38,7 +57,6 @@ const DemoForm: React.FC = () => {
         formData={formData}
         onChange={({ formData }) => dispatch(formDataChange(formData))}
         onSubmit={({ formData }) => dispatch(submitDemoForm(formData))}
-        onError={clearServerError}
       >
         <div>
           <button
@@ -47,6 +65,13 @@ const DemoForm: React.FC = () => {
             disabled={submitting}
           >
             Submit
+          </button>
+          <button
+            className="btn btn-secondary"
+            type="reset"
+            onClick={() => dispatch(clearForm())}
+          >
+            Clear
           </button>
         </div>
       </Form>

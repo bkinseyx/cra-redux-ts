@@ -1,0 +1,15 @@
+.App {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  padding: 20px;
+  width: 30%;
+}
+
+.App .card:last-child {
+  margin-left: 30px;
+  width: 60%;
+}

@@ -1,15 +1,42 @@
 import React from "react";
-// import { UiSchema } from "react-jsonschema-form";
-// import { JSONSchema6, JSONSchema6Type } from 'json-schema';
+import { AjvError } from "react-jsonschema-form";
 import InputMask from "react-input-mask";
 
-const getFieldNameFromError = (error: any, schema: any) =>
+interface Error {
+  property: string;
+  params: {
+    format: string;
+  };
+}
+
+interface Schema {
+  properties: {
+    [key: string]: {
+      title: string;
+    };
+  };
+}
+
+interface Formats {
+  [key: string]: {
+    regex: RegExp;
+    error: string;
+  };
+}
+
+interface ErrorStrings {
+  [key: string]: string;
+}
+
+const getFieldNameFromError = (error: Error, schema: Schema) =>
   schema.properties[error.property.substr(1)].title;
 
-const getTransformErrors = (schema: any, formats: any) => (errors: any) => {
-  const errorStrings: any = getErrorStrings(formats);
+const getTransformErrors = (schema: Schema, formats: Formats) => (
+  errors: Error[]
+) => {
+  const errorStrings = getErrorStrings(formats);
 
-  return errors.map((error: any) =>
+  return errors.map(error =>
     Object.keys(errorStrings).includes(error.params.format)
       ? {
           ...error,
@@ -19,10 +46,10 @@ const getTransformErrors = (schema: any, formats: any) => (errors: any) => {
           }`
         }
       : error
-  );
+  ) as AjvError[];
 };
 
-const formats = {
+const formats: Formats = {
   phoneNumberFormat: {
     regex: /^$|^\(?([2-9][0-8][0-9])\)?[-. ]?([2-9][0-9]{2})[-. ]?([0-9]{4})$/,
     error: "must be valid and in the format of XXX-XXX-XXXX"
@@ -33,7 +60,7 @@ const formats = {
   }
 };
 
-const getCustomFormats = (formats: any) =>
+const getCustomFormats = (formats: Formats) =>
   Object.keys(formats).reduce(
     (customFormats, key) => ({
       ...customFormats,
@@ -42,7 +69,7 @@ const getCustomFormats = (formats: any) =>
     {}
   );
 
-const getErrorStrings = (formats: any) =>
+const getErrorStrings: (formats: Formats) => ErrorStrings = formats =>
   Object.keys(formats).reduce(
     (customFormats, key) => ({
       ...customFormats,
@@ -54,7 +81,14 @@ const getErrorStrings = (formats: any) =>
 // It is necessary to make sure value is initialized as a string, rather than undefined.
 // Because otherwise react will give a warning about an uncontrolled component changing
 // to a controlled component.
-const PhoneNumberWidget = (props: any) => {
+
+interface PhoneNumberWidgetProps {
+  value: string;
+  required: boolean | undefined;
+  onChange: (value: string) => void;
+}
+
+const PhoneNumberWidget = (props: PhoneNumberWidgetProps) => {
   const { value = "", required, onChange } = props;
   return (
     <InputMask
