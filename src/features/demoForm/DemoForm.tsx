@@ -12,10 +12,9 @@ import {
 } from "../../utils/form";
 import {
   formDataChange,
-  submitDemoForm,
-  clearForm
+  submitDemoForm
 } from "features/demoForm/demoFormSlice";
-
+import FormButtonBar from "./FormButtonBar";
 import schema from "./demoFormSchema.json";
 import uiSchema from "./demoFormUiSchema.json";
 
@@ -58,22 +57,7 @@ const DemoForm: React.FC = () => {
         onChange={({ formData }) => dispatch(formDataChange(formData))}
         onSubmit={({ formData }) => dispatch(submitDemoForm(formData))}
       >
-        <div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={submitting}
-          >
-            Submit
-          </button>
-          <button
-            className="btn btn-secondary"
-            type="reset"
-            onClick={() => dispatch(clearForm())}
-          >
-            Clear
-          </button>
-        </div>
+        <FormButtonBar></FormButtonBar>
       </Form>
     </div>
   );

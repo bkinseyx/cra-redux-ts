@@ -69,7 +69,9 @@ const getCustomFormats = (formats: Formats) =>
     {}
   );
 
-const getErrorStrings: (formats: Formats) => ErrorStrings = formats =>
+type GetErrorStrings = (formats: Formats) => ErrorStrings;
+
+const getErrorStrings: GetErrorStrings = formats =>
   Object.keys(formats).reduce(
     (customFormats, key) => ({
       ...customFormats,
