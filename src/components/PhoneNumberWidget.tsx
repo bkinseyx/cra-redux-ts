@@ -7,6 +7,9 @@ interface PhoneNumberWidgetProps {
   onChange: (value: string) => void;
 }
 
+// It is necessary to make sure value is initialized as a string, rather than undefined.
+// Because otherwise react will give a warning about an uncontrolled component changing
+// to a controlled component.
 const PhoneNumberWidget: React.FC<PhoneNumberWidgetProps> = ({
   value = "",
   required,

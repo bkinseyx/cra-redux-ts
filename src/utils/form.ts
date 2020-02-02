@@ -81,10 +81,6 @@ const getErrorStrings: GetErrorStrings = formats =>
     {}
   );
 
-// It is necessary to make sure value is initialized as a string, rather than undefined.
-// Because otherwise react will give a warning about an uncontrolled component changing
-// to a controlled component.
-
 const widgets = {
   phoneNumberWidget: PhoneNumberWidget as StatelessComponent<WidgetProps>
 };
