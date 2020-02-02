@@ -68,7 +68,12 @@ export const {
 
 /**
  * Call this instead of a redux action directly in order to submit the form.
- * This function will call the redux actions as needed
+ * This function will call the redux actions as needed.
+ * We define this outside of the reducer because it doesn't directly modify state.
+ * Instead it will asynchronously call reducers as needed.
+ * A thunk is a function returned by another function.
+ * It is a style of doing async stuff with redux.
+ * redux-toolkit inserts redux-thunk middleware by default.
  */
 export const submitDemoForm = (formData: any): AppThunk => async dispatch => {
   // this async await pattern replaces calling .then and .catch on promises
