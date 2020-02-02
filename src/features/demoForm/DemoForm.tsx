@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Form from "react-jsonschema-form";
 import { JSONSchema6 } from "json-schema";
-
 import { RootState } from "rootReducer";
 import {
   widgets,
@@ -12,40 +11,24 @@ import {
 } from "../../utils/form";
 import {
   formDataChange,
-  submitDemoForm
+  submitDemoForm,
+  clearForm
 } from "features/demoForm/demoFormSlice";
-import FormButtonBar from "./FormButtonBar";
+import FormAlertBar from "components/FormAlertBar";
+import FormButtonBar from "components/FormButtonBar";
 import schema from "./demoFormSchema.json";
 import uiSchema from "./demoFormUiSchema.json";
 
 const DemoForm: React.FC = () => {
   const dispatch = useDispatch();
-  const {
-    formKey,
-    formData,
-    serverSuccessMessage,
-    serverError,
-    submitting
-  } = useSelector((state: RootState) => state.demoForm);
+  const { formKey, formData } = useSelector(
+    (state: RootState) => state.demoForm
+  );
 
   return (
     <div className="DemoForm">
       <h1>Demo Form</h1>
-      {serverSuccessMessage && (
-        <div className="alert alert-success" role="alert">
-          {serverSuccessMessage}
-        </div>
-      )}
-      {serverError && (
-        <div className="alert alert-danger" role="alert">
-          {serverError}
-        </div>
-      )}
-      {submitting && (
-        <div className="alert alert-info" role="alert">
-          Submitting...
-        </div>
-      )}
+      <FormAlertBar sliceKey="demoForm"></FormAlertBar>
       <Form
         key={formKey}
         schema={schema as JSONSchema6}
@@ -57,7 +40,10 @@ const DemoForm: React.FC = () => {
         onChange={({ formData }) => dispatch(formDataChange(formData))}
         onSubmit={({ formData }) => dispatch(submitDemoForm(formData))}
       >
-        <FormButtonBar></FormButtonBar>
+        <FormButtonBar
+          sliceKey="demoForm"
+          clearForm={clearForm}
+        ></FormButtonBar>
       </Form>
     </div>
   );

@@ -1,12 +1,19 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 
 import { RootState } from "rootReducer";
-import { clearForm } from "features/demoForm/demoFormSlice";
 
-const FormButtonBar: React.FC = () => {
+interface FormButtonBarProps {
+  sliceKey: string;
+  clearForm: ActionCreatorWithoutPayload<string>;
+}
+
+const FormButtonBar = ({ sliceKey, clearForm }: FormButtonBarProps) => {
   const dispatch = useDispatch();
-  const { submitting } = useSelector((state: RootState) => state.demoForm);
+  const { submitting } = useSelector(
+    (state: RootState) => (state as any)[sliceKey]
+  );
 
   return (
     <div>

@@ -90,7 +90,9 @@ interface PhoneNumberWidgetProps {
   onChange: (value: string) => void;
 }
 
-const PhoneNumberWidget = (props: PhoneNumberWidgetProps) => {
+const PhoneNumberWidget: (
+  props: PhoneNumberWidgetProps
+) => JSX.Element = props => {
   const { value = "", required, onChange } = props;
   return (
     <InputMask

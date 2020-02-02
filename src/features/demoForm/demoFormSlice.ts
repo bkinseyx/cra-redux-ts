@@ -19,7 +19,7 @@ const initialState: DemoFormState = {
 };
 
 const demoFormSlice = createSlice({
-  name: "demoFormSlice",
+  name: "demoForm",
   initialState,
   reducers: {
     formDataChange(state, action: PayloadAction<any>) {
