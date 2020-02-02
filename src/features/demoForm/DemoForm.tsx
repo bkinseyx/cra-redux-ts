@@ -16,9 +16,14 @@ import {
 } from "features/demoForm/demoFormSlice";
 import FormAlertBar from "components/FormAlertBar";
 import FormButtonBar from "components/FormButtonBar";
-import schema from "./demoFormSchema.json";
+
+import jsonSchema from "./demoFormSchema.json";
 import uiSchema from "./demoFormUiSchema.json";
 
+// I don't know how to directly type raw imported json from a file, so it is a second step
+const schema = jsonSchema as JSONSchema6;
+
+/** a form to demo react-jsonschema-form */
 const DemoForm: React.FC = () => {
   const dispatch = useDispatch();
   const { formKey, formData } = useSelector(
@@ -30,8 +35,10 @@ const DemoForm: React.FC = () => {
       <h1>Demo Form</h1>
       <FormAlertBar sliceKey="demoForm"></FormAlertBar>
       <Form
+        // key only seems to be necessary in order to clear the form
+        // see https://github.com/rjsf-team/react-jsonschema-form/issues/953#issuecomment-397815654
         key={formKey}
-        schema={schema as JSONSchema6}
+        schema={schema}
         uiSchema={uiSchema}
         widgets={widgets}
         customFormats={getCustomFormats(formats)}
