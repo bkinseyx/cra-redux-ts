@@ -9,8 +9,9 @@ const getFieldTitleFromError = (error: AjvError, schema: JSONSchema6) => {
   // for some reason error properties are prepended with a . so we strip 'em off
   const propertyFromError = error.property.substr(1);
 
-  // "as any" necessary here because JSONSchema6 can define non-string properties for some reason that eludes me
-  // in our case we are fine here since we know all our properties must be strings
+  // "as any" necessary here because JSONSchema6 properties can be undefined for
+  // some reason that eludes me.
+  // In our case we are fine here since we know all our properties must be strings.
   return (schema.properties as any)[propertyFromError].title;
 };
 

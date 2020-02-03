@@ -12,7 +12,7 @@ interface PhoneNumberWidgetProps {
  * The props are fed in from react-jsonschema-forms.
  * It is necessary to make sure value is initialized as a string, rather than undefined.
  * Because otherwise react will give a warning about an uncontrolled component changing
- * to a controlled component. I like also like input masking.
+ * to a controlled component. I also like input masking.
  */
 const PhoneNumberWidget: React.FC<PhoneNumberWidgetProps> = ({
   value = "",
