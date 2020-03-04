@@ -1,6 +1,7 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware, Action } from "@reduxjs/toolkit";
+import { ThunkAction } from "redux-thunk";
 
-import rootReducer from "./rootReducer";
+import rootReducer, { RootState } from "./rootReducer";
 import createLogger from "middleware/logger";
 
 const store = configureStore({
@@ -17,4 +18,6 @@ if (process.env.NODE_ENV === "development" && module.hot) {
   });
 }
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
+
 export default store;
