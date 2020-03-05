@@ -16,9 +16,13 @@ const Counter: React.FC = () => {
     <div className="Counter">
       <h1>Counter</h1>
       the counter: {theCounter}
-      <button onClick={() => dispatch(incrementCounter())}>Increment</button>
-      <button onClick={() => dispatch(decrementCounter())}>Decrement</button>
-      <button onClick={() => dispatch(resetCounter())}>Reset</button>
+      <button onClick={(): {} => dispatch(incrementCounter())}>
+        Increment
+      </button>
+      <button onClick={(): {} => dispatch(decrementCounter())}>
+        Decrement
+      </button>
+      <button onClick={(): {} => dispatch(resetCounter())}>Reset</button>
     </div>
   );
 };

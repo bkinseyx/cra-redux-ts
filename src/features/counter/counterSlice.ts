@@ -15,18 +15,18 @@ const counterSlice = createSlice({
     incrementCounter(
       state: CounterState,
       action: PayloadAction<number | undefined>
-    ) {
+    ): void {
       const incrementAcount = action.payload ?? 1;
       state.theCounter += incrementAcount;
     },
     decrementCounter(
       state: CounterState,
       action: PayloadAction<number | undefined>
-    ) {
+    ): void {
       const decrementAcount = action.payload ?? 1;
       state.theCounter -= decrementAcount;
     },
-    resetCounter(state: CounterState) {
+    resetCounter(state: CounterState): void {
       state.theCounter = 0;
     }
   }

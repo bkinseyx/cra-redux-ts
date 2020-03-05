@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { StatelessComponent } from "react";
 import { AjvError, WidgetProps } from "react-jsonschema-form";
 import { JSONSchema6 } from "json-schema";

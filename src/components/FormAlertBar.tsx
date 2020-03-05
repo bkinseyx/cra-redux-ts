@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import { RootState } from "rootReducer";
 
@@ -7,8 +8,10 @@ interface FormAlertBarProps {
   sliceKey: string;
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 const FormAlertBar: React.FC<FormAlertBarProps> = ({ sliceKey }) => {
   const { serverSuccessMessage, serverError, submitting } = useSelector(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (state: RootState) => (state as any)[sliceKey]
   );
 
@@ -31,6 +34,9 @@ const FormAlertBar: React.FC<FormAlertBarProps> = ({ sliceKey }) => {
       )}
     </React.Fragment>
   );
+};
+FormAlertBar.propTypes = {
+  sliceKey: PropTypes.string.isRequired
 };
 
 export default FormAlertBar;

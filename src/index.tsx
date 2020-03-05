@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import "./index.css";
-const render = () => {
+const render = (): void => {
   const App = require("./App").default;
   ReactDOM.render(
     <Provider store={store}>

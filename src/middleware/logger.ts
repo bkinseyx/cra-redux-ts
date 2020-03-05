@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Middleware } from "redux";
 
 const REGULAR = ["background: blue", "color: white"].join(";");
@@ -8,7 +9,7 @@ const STARTED = ["background: darkorange", "color: white"].join(";");
 
 const FAILURE = ["background: red", "color: white"].join(";");
 
-const createLogger: (active: Boolean) => Middleware = (
+const createLogger: (active: boolean) => Middleware = (
   active = true
 ) => store => next => action => {
   if (!active) {

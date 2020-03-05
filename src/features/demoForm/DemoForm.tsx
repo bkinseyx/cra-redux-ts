@@ -44,8 +44,8 @@ const DemoForm: React.FC = () => {
         customFormats={getCustomFormats(formats)}
         transformErrors={getTransformErrors(schema, formats)}
         formData={formData}
-        onChange={({ formData }) => dispatch(formDataChange(formData))}
-        onSubmit={({ formData }) => dispatch(submitDemoForm(formData))}
+        onChange={({ formData }): {} => dispatch(formDataChange(formData))}
+        onSubmit={({ formData }): {} => dispatch(submitDemoForm(formData))}
       >
         <FormButtonBar
           sliceKey="demoForm"

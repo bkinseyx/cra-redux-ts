@@ -1,3 +1,4 @@
+/* eslint-disable */
 /** Mock an api request to the server. Returns a Promise<string>.
  * Because we are just mocking, we don't actually use the formData.
  */

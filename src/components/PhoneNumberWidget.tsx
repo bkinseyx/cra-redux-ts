@@ -1,5 +1,6 @@
 import React from "react";
 import InputMask from "react-input-mask";
+import PropTypes from "prop-types";
 
 interface PhoneNumberWidgetProps {
   value: string;
@@ -26,8 +27,13 @@ const PhoneNumberWidget: React.FC<PhoneNumberWidgetProps> = ({
     className="form-control"
     value={value}
     required={required}
-    onChange={event => onChange(event.target.value)}
+    onChange={(event): void => onChange(event.target.value)}
   />
 );
+PhoneNumberWidget.propTypes = {
+  value: PropTypes.string.isRequired,
+  required: PropTypes.any,
+  onChange: PropTypes.any
+};
 
 export default PhoneNumberWidget;

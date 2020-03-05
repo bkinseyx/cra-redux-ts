@@ -5,7 +5,7 @@ import { AppThunk } from "store";
 interface DemoFormState {
   formKey: number;
   // generally I try to avoid any, but in this case I think it is worth it. the schema defines the type.
-  formData: any;
+  formData: {};
   serverError: string | null;
   serverSuccessMessage: string | null;
   submitting: boolean;
@@ -13,7 +13,7 @@ interface DemoFormState {
 
 const initialState: DemoFormState = {
   formKey: Date.now(),
-  formData: null,
+  formData: {},
   serverError: null,
   serverSuccessMessage: null,
   submitting: false
@@ -24,33 +24,33 @@ const demoFormSlice = createSlice({
   initialState,
   reducers: {
     /** call when form data changes */
-    formDataChange(state, action: PayloadAction<any>) {
+    formDataChange(state, action: PayloadAction<{}>): void {
       state.formData = action.payload;
       state.serverSuccessMessage = null;
       state.serverError = null;
     },
     /** call to clear form (e.g. from a Clear button) */
-    clearForm(state) {
+    clearForm(state): void {
       state.formKey = Date.now(); // clears the form!
       state.serverSuccessMessage = null;
       state.serverError = null;
       state.submitting = false;
-      state.formData = null;
+      state.formData = {};
     },
     /** api call starts -- not called directly, see submitDemoForm */
-    submitDemoFormStart(state) {
+    submitDemoFormStart(state): void {
       state.serverSuccessMessage = null;
       state.serverError = null;
       state.submitting = true;
     },
     /** api call successful, not called directly */
-    submitDemoFormSuccess(state, action: PayloadAction<string | null>) {
+    submitDemoFormSuccess(state, action: PayloadAction<string | null>): void {
       state.serverError = null;
       state.submitting = false;
       state.serverSuccessMessage = action.payload;
     },
     /** api call failed */
-    submitDemoFormFailure(state, action: PayloadAction<string | null>) {
+    submitDemoFormFailure(state, action: PayloadAction<string | null>): void {
       state.serverError = action.payload;
       state.serverSuccessMessage = null;
       state.submitting = false;
@@ -75,7 +75,9 @@ export const {
  * It is a style of doing async stuff with redux.
  * redux-toolkit inserts redux-thunk middleware by default.
  */
-export const submitDemoForm = (formData: any): AppThunk => async dispatch => {
+export const submitDemoForm = (formData: {}): AppThunk => async (
+  dispatch
+): Promise<void> => {
   // this async await pattern replaces calling .then and .catch on promises
   // it is supposed to be more clear, and lest nested
   try {
